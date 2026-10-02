@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    letter-spacing: -0.011em;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: #0F172A;
+    background-color: #F8FAFC;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  html.dark body,
+  html[data-theme="dark"] body {
+    color: #F8FAFC;
+    background-color: #0B0F19;
+  }
+
+  html[data-theme="white"] body {
+    color: #020617;
+    background-color: #FFFFFF;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ======================================================== */
+/* 1. DARK MODE: SMOKY OBSIDIAN OVERRIDES                   */
+/* ======================================================== */
+html.dark,
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html.dark .bg-white,
+html[data-theme="dark"] .bg-white {
+  background-color: #111827 !important;
+}
+
+html.dark .bg-slate-50,
+html[data-theme="dark"] .bg-slate-50 {
+  background-color: #0B0F19 !important;
+}
+
+html.dark .bg-slate-100,
+html[data-theme="dark"] .bg-slate-100 {
+  background-color: #1E293B !important;
+}
+
+html.dark .border-slate-200,
+html.dark .border-slate-100,
+html[data-theme="dark"] .border-slate-200,
+html[data-theme="dark"] .border-slate-100 {
+  border-color: #1E293B !important;
+}
+
+html.dark .text-slate-900,
+html.dark .text-slate-800,
+html[data-theme="dark"] .text-slate-900,
+html[data-theme="dark"] .text-slate-800 {
+  color: #F8FAFC !important;
+}
+
+html.dark .text-slate-700,
+html.dark .text-slate-600,
+html[data-theme="dark"] .text-slate-700,
+html[data-theme="dark"] .text-slate-600 {
+  color: #CBD5E1 !important;
+}
+
+html.dark .text-slate-500,
+html[data-theme="dark"] .text-slate-500 {
+  color: #94A3B8 !important;
+}
+
+html.dark input,
+html.dark select,
+html.dark textarea,
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+  background-color: #1E293B !important;
+  color: #F8FAFC !important;
+  border-color: #334155 !important;
+}
+
+/* In Dark Mode: Hover backgrounds must be smoky slate, never blinding white */
+html.dark [class*="hover:bg-white"]:hover,
+html[data-theme="dark"] [class*="hover:bg-white"]:hover {
+  background-color: #1E293B !important;
+  color: #FFFFFF !important;
+}
+
+html.dark [class*="hover:bg-slate-50"]:hover,
+html.dark [class*="hover:bg-slate-100"]:hover,
+html[data-theme="dark"] [class*="hover:bg-slate-50"]:hover,
+html[data-theme="dark"] [class*="hover:bg-slate-100"]:hover {
+  background-color: #1F2937 !important;
+  color: #FFFFFF !important;
+}
+
+/* ======================================================== */
+/* 2. WHITE MODE: PURE MINIMALIST SMART HOVER               */
+/* ======================================================== */
+html[data-theme="white"] {
+  color-scheme: light;
+}
+
+html[data-theme="white"] .bg-white {
+  background-color: #FFFFFF !important;
+}
+
+html[data-theme="white"] .bg-slate-50 {
+  background-color: #F8FAFC !important;
+}
+
+html[data-theme="white"] .bg-slate-100 {
+  background-color: #F1F5F9 !important;
+}
+
+/* In white mode, hover background adjusts smartly to soft slate so contrast is visible */
+html[data-theme="white"] [class*="hover:bg-white"]:hover {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="white"] [class*="hover:bg-slate-50"]:hover {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="white"] [class*="hover:bg-slate-100"]:hover {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+/* In white mode, words on light surfaces must NEVER disappear! Keep text deep dark and legible */
+html[data-theme="white"] :not(footer):not(.smoky-job-card):not(.bg-slate-900):not(.bg-slate-950) > button:not(.bg-emerald-600):not(.bg-slate-900):not(.bg-rose-600):not(.bg-emerald-700):hover,
+html[data-theme="white"] :not(footer):not(.smoky-job-card):not(.bg-slate-900):not(.bg-slate-950) > a:not(.bg-emerald-600):not(.bg-slate-900):not(.bg-rose-600):not(.bg-emerald-700):hover,
+html[data-theme="white"] main [class*="hover:text-white"]:not(.smoky-job-card *):not(.bg-emerald-600):not(.bg-slate-900):hover,
+html[data-theme="white"] main [class*="dark:hover:text-white"]:not(.smoky-job-card *):not(.bg-emerald-600):not(.bg-slate-900):hover {
+  color: #020617 !important;
+}
+
+/* ======================================================== */
+/* 3. LIGHT MODE (DEFAULT): NATURAL SLATE SMART HOVER       */
+/* ======================================================== */
+/* In light mode, hover background on white surfaces adjusts to gentle slate-100 */
+html:not(.dark):not([data-theme="white"]):not([data-theme="dark"]) [class*="hover:bg-white"]:hover {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+html:not(.dark):not([data-theme="white"]):not([data-theme="dark"]) [class*="hover:bg-slate-50"]:hover {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+/* In light mode: ensure words always appear! Non-solid buttons on light surfaces must not have white hover text */
+html:not(.dark):not([data-theme="white"]):not([data-theme="dark"]) main button:not(.bg-emerald-600):not(.bg-slate-900):not(.bg-rose-600):not(.bg-emerald-700):not(.smoky-job-card *)[class*="dark:hover:text-white"]:hover,
+html:not(.dark):not([data-theme="white"]):not([data-theme="dark"]) main a:not(.bg-emerald-600):not(.bg-slate-900):not(.bg-rose-600):not(.bg-emerald-700):not(.smoky-job-card *)[class*="dark:hover:text-white"]:hover {
+  color: #0F172A !important;
+}
+
+/* ======================================================== */
+/* 4. PROTECT DARK SURFACES & SMOKY CARDS ACROSS ALL THEMES */
+/* ======================================================== */
+/* Dark surfaces (Footer, Smoky Job Cards) always maintain crisp white & emerald readability */
+footer [class*="hover:text-white"]:hover,
+footer button:hover,
+footer a:hover,
+.smoky-job-card,
+.smoky-job-card [class*="text-white"],
+.smoky-job-card [class*="group-hover:text-white"]:hover {
+  color: #FFFFFF !important;
+}
+
+.smoky-job-card [class*="group-hover:text-emerald-400"]:hover,
+.smoky-job-card:hover h3 {
+  color: #34D399 !important;
+}

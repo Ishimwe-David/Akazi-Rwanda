@@ -1,0 +1,6 @@
+{
+  "name": "Akazi.com - Find Work. Hire Talent. Grow.",
+  "description": "Rwanda's trusted job and talent platform. Browse verified jobs, internships, books, and hire qualified talent across Kigali and all Rwandan districts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
