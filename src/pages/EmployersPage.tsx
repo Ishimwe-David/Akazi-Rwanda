@@ -37,9 +37,24 @@ export const EmployersPage: React.FC<EmployersPageProps> = ({ onNavigatePost, on
 
   const bundlePackages = packages.filter(p => p.id.startsWith('bundle'));
 
-  const handleQuoteSubmit = (e: React.FormEvent) => {
+  const handleQuoteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setQuoteSubmitted(true);
+    try {
+      await fetch('/api/consultancy/request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          companyName: quoteOrgName,
+          contactName: quoteContactName,
+          email: quoteEmail,
+          phone: quotePhone,
+          requirements: quoteHiringNeeds,
+        }),
+      });
+    } catch (err) {
+      console.warn('Backend request offline, local state preserved:', err);
+    }
     showToast(language === 'rw' ? 'Icyifuzo cyo gushaka abakozi cyakiriwe!' : 'Recruitment consultancy request submitted! Our team will contact you.');
   };
 

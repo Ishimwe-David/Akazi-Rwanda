@@ -54,12 +54,27 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
     }
   }, [lockTimer]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isLocked) return;
 
     setError(null);
-    const success = adminLogin(passkey);
+    let serverAuthorized = false;
+    try {
+      const res = await fetch('/api/admin/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ passkey }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.authorized) serverAuthorized = true;
+      }
+    } catch (err) {
+      console.warn('Backend server verification offline, using client validation:', err);
+    }
+
+    const success = adminLogin(passkey) || serverAuthorized;
     if (success) {
       setPasskey('');
       onLoginSuccess();

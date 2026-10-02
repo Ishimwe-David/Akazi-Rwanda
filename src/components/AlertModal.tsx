@@ -28,7 +28,7 @@ export const AlertModal: React.FC<AlertModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     createJobAlert({
       keywords: keywords || 'All Opportunities',
@@ -38,6 +38,15 @@ export const AlertModal: React.FC<AlertModalProps> = ({
       destination,
       frequency
     });
+    try {
+      await fetch('/api/alerts/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ destination, channel, category: 'all', district }),
+      });
+    } catch (err) {
+      console.warn('Backend alert logging offline, local state preserved:', err);
+    }
     setIsSuccess(true);
   };
 

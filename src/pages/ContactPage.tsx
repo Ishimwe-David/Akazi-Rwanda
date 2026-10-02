@@ -23,9 +23,18 @@ export const ContactPage: React.FC = () => {
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email: contact, phone: contact, userType, subject, message }),
+      });
+    } catch (err) {
+      console.warn('Backend logging offline, local state preserved:', err);
+    }
     showToast(language === 'rw' ? 'Ubutumwa bwawe bwakiriwe! Turagusubiza vuba.' : 'Message received! Our team will respond promptly.');
   };
 

@@ -18,9 +18,18 @@ export const ReportModal: React.FC<ReportModalProps> = ({ advert, isOpen, onClos
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     reportAdvert(advert.id, reason, details, contact);
+    try {
+      await fetch('/api/report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ advertId: advert.id, reason, details, contact }),
+      });
+    } catch (err) {
+      console.warn('Backend report logging offline, local state preserved:', err);
+    }
     setSubmitted(true);
   };
 
